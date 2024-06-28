@@ -1,17 +1,21 @@
 package com.example.ufc_houses;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +23,7 @@ import com.example.ufc_houses.adapter.ArticleAdapter;
 import com.example.ufc_houses.adapter.FightAdapter;
 import com.example.ufc_houses.model.ModelArticle;
 import com.example.ufc_houses.model.ModelFight;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView fightRecyclerView, articleRecyclerView;
     private FightAdapter fightAdapter;
     private ArticleAdapter articleAdapter;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ImageView hamburgerButton;
 
     LinearProgressIndicator progressIndicator;
     private List<ModelFight> fightList;
@@ -48,6 +56,42 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        hamburgerButton = findViewById(R.id.hamburger_toggle);
+
+        // Set onClickListener for hamburger button
+        hamburgerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toggle the drawer when hamburger button is clicked
+                drawerLayout.openDrawer(GravityCompat.END, true);
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
+                drawerLayout.closeDrawers();
+
+                if (item.getItemId() == R.id.nav_home) {
+                    // Start SearchActivity when nav_home is clicked
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (item.getItemId() == R.id.nav_search) {
+                    // Handle other navigation items here
+                    Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                    startActivity(intent);
+                    // ...
+                }
+
+                return false;
+            }
+        });
+
 
         imgHeadlines = findViewById(R.id.img_headlines);
         fightRecyclerView = findViewById(R.id.fight_recycler_view);
