@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "485649152312",
+    "firebase_url": "https://ufc-houses-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "ufc-houses",
+    "storage_bucket": "ufc-houses.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485649152312:android:7c73a5850f7ec6715c29cd",
+        "android_client_info": {
+          "package_name": "com.example.ufc_houses"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvgcZ9A7hiwnvZsvvH8Y-ZR5gQ2S3_NNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
