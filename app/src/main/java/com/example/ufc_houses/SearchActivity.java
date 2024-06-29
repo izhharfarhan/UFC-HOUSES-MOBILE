@@ -2,18 +2,18 @@ package com.example.ufc_houses;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +48,8 @@ public class SearchActivity extends AppCompatActivity {
     private DatabaseReference articlesRef;
 
     LinearProgressIndicator progressIndicator;
+    EditText searchEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class SearchActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout_search);
         navigationView = findViewById(R.id.nav_view);
         hamburgerButton = findViewById(R.id.hamburger_toggle);
+        searchEditText = findViewById(R.id.searchEditText);
 
         articleRecyclerView = findViewById(R.id.article_recycler_view);
         progressIndicator = findViewById(R.id.progress_bar);
@@ -74,7 +77,6 @@ public class SearchActivity extends AppCompatActivity {
         hamburgerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toggle the drawer when hamburger button is clicked
                 drawerLayout.openDrawer(GravityCompat.END, true);
             }
         });
@@ -86,15 +88,12 @@ public class SearchActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
 
                 if (item.getItemId() == R.id.nav_home) {
-                    // Start SearchActivity when nav_home is clicked
                     Intent intent = new Intent(SearchActivity.this, MainActivity.class);
                     startActivity(intent);
                     return true;
                 } else if (item.getItemId() == R.id.nav_search) {
-                    // Handle other navigation items here
                     Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
                     startActivity(intent);
-                    // ...
                 }
 
                 return false;
@@ -102,6 +101,74 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         getLatestArticles();
+
+        // Add TextWatcher to searchEditText
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterArticles(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        // Category buttons click listeners
+        setupCategoryButtons();
+    }
+
+    private void setupCategoryButtons() {
+        Button btnAll = findViewById(R.id.btn_1);
+        Button btnLightHeavyweight = findViewById(R.id.btn_2);
+        Button btnLightweight = findViewById(R.id.btn_3);
+        Button btnMiddleweight = findViewById(R.id.btn_4);
+        Button btnHeavyweight = findViewById(R.id.btn_5);
+        Button btnOther = findViewById(R.id.btn_6);
+
+        btnAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getLatestArticles(); // Show all articles
+            }
+        });
+
+        btnLightHeavyweight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles("Light-Heavyweight"); // Filter by Light-Heavyweight category
+            }
+        });
+
+        btnLightweight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles("Lightweight"); // Filter by Lightweight category
+            }
+        });
+
+        btnMiddleweight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles("Middleweight"); // Filter by Middleweight category
+            }
+        });
+
+        btnHeavyweight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles("Heavyweight"); // Filter by Heavyweight category
+            }
+        });
+
+        btnOther.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles("Other"); // Filter by Other category
+            }
+        });
     }
 
     private void getLatestArticles() {
@@ -129,13 +196,20 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    //PROGRESSBAR ATAU LOADING
     private void showProgressIndicator(boolean show) {
-        if (show) {
-            progressIndicator.setVisibility(View.VISIBLE);
-        } else {
-            progressIndicator.setVisibility(View.GONE);
-        }
+        progressIndicator.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
+    private void filterArticles(String query) {
+        List<ModelArticle> filteredList = new ArrayList<>();
+
+        for (ModelArticle article : articleList) {
+            if (article.getArticleTitle().toLowerCase().contains(query.toLowerCase()) ||
+                    article.getArticleCategory().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(article);
+            }
+        }
+
+        articleAdapter.updateArticleList(filteredList);
+    }
 }

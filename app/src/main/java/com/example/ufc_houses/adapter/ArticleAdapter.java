@@ -38,13 +38,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
         ModelArticle article = articleList.get(position);
 
-        Log.d("ArticleAdapter", "Binding article: " + article.getArticleTitle());
-
         holder.articleTitle.setText(article.getArticleTitle());
         holder.articleCategory.setText(article.getArticleCategory());
-        holder.articleDate.setText(article.getCreatedAt());
 
-        Picasso.get().load(article.getArticleThumbnail()).into(holder.articleImageView);
+        // Load article image using Picasso library
+        if (article.getArticleThumbnail() != null && !article.getArticleThumbnail().isEmpty()) {
+            Picasso.get().load(article.getArticleThumbnail()).into(holder.articleImage);
+        } else {
+            holder.articleImage.setImageResource(R.drawable.no_image);
+        }
     }
 
     @Override
@@ -52,17 +54,21 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         return articleList.size();
     }
 
+    public void updateArticleList(List<ModelArticle> newArticleList) {
+        this.articleList = newArticleList;
+        notifyDataSetChanged();
+    }
+
     public static class ArticleViewHolder extends RecyclerView.ViewHolder {
-        ImageView articleImageView;
-        TextView articleTitle, articleCategory, articleDate;
+        TextView articleTitle;
+        TextView articleCategory;
+        ImageView articleImage;
 
         public ArticleViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            articleImageView = itemView.findViewById(R.id.article_image_view);
             articleTitle = itemView.findViewById(R.id.article_title);
             articleCategory = itemView.findViewById(R.id.article_category);
-            articleDate = itemView.findViewById(R.id.article_date);
+            articleImage = itemView.findViewById(R.id.article_image_view);
         }
     }
 }
