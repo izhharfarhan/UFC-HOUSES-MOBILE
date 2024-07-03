@@ -9,186 +9,191 @@
     tools:context=".SearchActivity">
 
     <!-- Main Content -->
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <!-- Header -->
+            <ImageView
+                android:id="@+id/img_logo"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:srcCompat="@drawable/logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="33dp"
+                android:layout_marginLeft="5dp"
+                android:text="UFC HOUSES"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <!-- Hamburger Button -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:gravity="end">
 
                 <ImageView
-                    android:id="@+id/img_logo"
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
+                    android:id="@+id/hamburger_toggle"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="35dp"
                     android:layout_marginBottom="16dp"
-                    app:srcCompat="@drawable/logo" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="33dp"
-                    android:layout_marginLeft="5dp"
-                    android:text="UFC HOUSES"
-                    android:textSize="20dp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-
-                <!-- Hamburger Button -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="end">
-
-                    <ImageView
-                        android:id="@+id/hamburger_toggle"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="35dp"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="12dp"
-                        android:src="@drawable/humburger"
-                        android:contentDescription="Hamburger Menu"
-                        android:clickable="true"
-                        android:focusable="true"/>
-
-                </LinearLayout>
+                    android:layout_marginRight="12dp"
+                    android:src="@drawable/humburger"
+                    android:contentDescription="Hamburger Menu"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
             </LinearLayout>
 
-            <!-- Linear Progress Indicator -->
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/progress_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                app:indicatorColor="@color/yellow"
-                app:trackColor="@color/black"/>
-
-            <!-- TextView and Buttons -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Find Anything about UFC!"
-                android:textStyle="bold"
-                android:gravity="center_horizontal"
-                android:textSize="50dp"
-                android:textColor="@color/white"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="You want to know the latest rumor fight? Or you want some entertainment? Or you even want to learn how to fight? Search and find something only on UFC HOUSES!"
-                android:textSize="18dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="@color/white"
-                android:justificationMode="inter_word"
-                android:gravity="center_horizontal"/>
-
-            <EditText
-                android:id="@+id/searchEditText"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:hint="Search..."
-                android:paddingLeft="10dp"
-                android:textColorHint="@color/black"
-                android:background="@color/white"/>
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginBottom="10dp"
-                android:scrollbars="none"
-                android:id="@+id/horizontal_buttons">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="43dp"
-                        android:id="@+id/btn_1"
-                        android:textColor="@color/black"
-                        android:backgroundTint="@color/white"
-                        android:text="All"/>
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="43dp"
-                        android:layout_marginLeft="6dp"
-                        android:id="@+id/btn_2"
-                        android:textColor="@color/black"
-                        android:backgroundTint="@color/white"
-                        android:text="Light-Heavyweight"/>
-
-                    <Button
-                        android:id="@+id/btn_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="43dp"
-                        android:layout_marginLeft="6dp"
-                        android:textColor="@color/black"
-                        android:backgroundTint="@color/white"
-                        android:text="Lightweight" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="43dp"
-                        android:layout_marginLeft="6dp"
-                        android:id="@+id/btn_4"
-                        android:textColor="@color/black"
-                        android:backgroundTint="@color/white"
-                        android:text="Middleweight"/>
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="43dp"
-                        android:layout_marginLeft="6dp"
-                        android:id="@+id/btn_5"
-                        android:textColor="@color/black"
-                        android:backgroundTint="@color/white"
-                        android:text="Heavyweight"/>
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="43dp"
-                        android:layout_marginLeft="6dp"
-                        android:id="@+id/btn_6"
-                        android:textColor="@color/black"
-                        android:backgroundTint="@color/white"
-                        android:text="Other"/>
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <!-- RecyclerView for articles -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/article_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="true" />
-
-
         </LinearLayout>
 
-    </ScrollView>
+        <!-- Linear Progress Indicator -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:indicatorColor="@color/yellow"
+            app:trackColor="@color/black"/>
+
+        <!-- Wrap the content from this point in a ScrollView -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Find Anything about UFC!"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal"
+                    android:textSize="50dp"
+                    android:textColor="@color/white"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="You want to know the latest rumor fight? Or you want some entertainment? Or you even want to learn how to fight? Search and find something only on UFC HOUSES!"
+                    android:textSize="18dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="20dp"
+                    android:textColor="@color/white"
+                    android:justificationMode="inter_word"
+                    android:gravity="center_horizontal"/>
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:hint="Search..."
+                    android:paddingLeft="10dp"
+                    android:textColorHint="@color/black"
+                    android:background="@color/white"/>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:scrollbars="none"
+                    android:id="@+id/horizontal_buttons">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="43dp"
+                            android:id="@+id/btn_1"
+                            android:textColor="@color/black"
+                            android:backgroundTint="@color/white"
+                            android:text="All"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="43dp"
+                            android:layout_marginLeft="6dp"
+                            android:id="@+id/btn_2"
+                            android:textColor="@color/black"
+                            android:backgroundTint="@color/white"
+                            android:text="Light-Heavyweight"/>
+
+                        <Button
+                            android:id="@+id/btn_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="43dp"
+                            android:layout_marginLeft="6dp"
+                            android:textColor="@color/black"
+                            android:backgroundTint="@color/white"
+                            android:text="Lightweight" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="43dp"
+                            android:layout_marginLeft="6dp"
+                            android:id="@+id/btn_4"
+                            android:textColor="@color/black"
+                            android:backgroundTint="@color/white"
+                            android:text="Middleweight"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="43dp"
+                            android:layout_marginLeft="6dp"
+                            android:id="@+id/btn_5"
+                            android:textColor="@color/black"
+                            android:backgroundTint="@color/white"
+                            android:text="Heavyweight"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="43dp"
+                            android:layout_marginLeft="6dp"
+                            android:id="@+id/btn_6"
+                            android:textColor="@color/black"
+                            android:backgroundTint="@color/white"
+                            android:text="Other"/>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <!-- RecyclerView for articles -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/article_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
     <!-- Right Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
@@ -199,5 +204,4 @@
         app:menu="@menu/navigation_menu"
         android:background="@drawable/nav_view_background"
         app:itemTextColor="@color/white" />
-
 </androidx.drawerlayout.widget.DrawerLayout>

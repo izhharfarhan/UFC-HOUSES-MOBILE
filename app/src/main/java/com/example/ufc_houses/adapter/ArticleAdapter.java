@@ -19,7 +19,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder> {
-
     private List<ModelArticle> articleList;
     private Context context;
 
@@ -64,7 +63,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     @Override
     public int getItemCount() {
-        return articleList.size();
+        return articleList != null ? articleList.size() : 0;
     }
 
     public void updateArticleList(List<ModelArticle> newArticleList) {

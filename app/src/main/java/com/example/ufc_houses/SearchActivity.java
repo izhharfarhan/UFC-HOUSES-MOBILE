@@ -7,6 +7,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -186,6 +188,28 @@ public class SearchActivity extends AppCompatActivity {
                 }
                 Collections.reverse(articleList); // Reverse the list to show the most recent article first
                 articleAdapter.notifyDataSetChanged();
+
+                // Menambahkan GlobalLayoutListener untuk mengukur tinggi RecyclerView
+                articleRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        int totalHeight = 0;
+                        for (int i = 0; i < articleAdapter.getItemCount(); i++) {
+                            View listItem = articleAdapter.onCreateViewHolder(articleRecyclerView, articleAdapter.getItemViewType(i)).itemView;
+                            listItem.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                            totalHeight += listItem.getMeasuredHeight();
+                            Log.d("ItemHeight", "Item " + i + " height: " + listItem.getMeasuredHeight());
+                        }
+                        ViewGroup.LayoutParams params = articleRecyclerView.getLayoutParams();
+                        int additionalHeight = (int) (150 * getResources().getDisplayMetrics().density); // Convert 50dp to pixels
+                        params.height = totalHeight + (articleRecyclerView.getItemDecorationCount() * 10) + additionalHeight; // Adjust for item decorations if any
+                        articleRecyclerView.setLayoutParams(params);
+
+                        Log.d("TotalHeight", "Total RecyclerView height: " + params.height);
+                        articleRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                });
+
             }
 
             @Override
@@ -195,6 +219,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void showProgressIndicator(boolean show) {
         progressIndicator.setVisibility(show ? View.VISIBLE : View.GONE);
