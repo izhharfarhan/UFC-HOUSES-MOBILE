@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".MainActivity">
+    tools:context=".ArticleActivity">
 
     <!-- Main Content -->
     <LinearLayout
@@ -58,6 +58,7 @@
                     android:focusable="true"/>
 
             </LinearLayout>
+
         </LinearLayout>
 
         <!-- Linear Progress Indicator -->
@@ -72,7 +73,7 @@
         <!-- Wrap the content from this point in a ScrollView -->
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fillViewport="true">
 
@@ -81,64 +82,35 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/title_article"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:text="Find Anything about UFC!"
+                    android:textStyle="bold"
+                    android:maxLines="3"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"/>
+
                 <!-- Include headline_banner -->
-                <include layout="@layout/headline_banner" />
+                <include layout="@layout/headline_article" />
 
-                <!-- UPCOMING FIGHT -->
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginTop="5dp"
-                    android:text="UPCOMING FIGHT"
-                    android:textSize="18dp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-
-                <!-- RecyclerView for upcoming fights -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fight_recycler_view"
+                    android:id="@+id/content_article"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
-                    android:orientation="horizontal" />
-
-                <!-- SEE WHAT'S HOT -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/see"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="SEE WHAT'S HOT"
-                    android:textSize="18dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:text="This approach ensures that the RecyclerView's height dynamically adjusts to its content, allowing it to display all items without being cut off, while still respecting the overall layout structure. The LinearLayout parent provides a maximum height boundary, and the weight distribution ensures efficient use of available space."
                     android:textColor="@color/white"
-                    android:textStyle="bold" />
-
-                <!-- RecyclerView for articles -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/article_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="2595dp"
-                    android:nestedScrollingEnabled="false" />
-
-                <!-- SEE ALL -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/seeAll"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="SEE ALL"
-                    android:textSize="18dp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    android:justificationMode="inter_word"/>
 
             </LinearLayout>
 
         </ScrollView>
+
     </LinearLayout>
 
     <!-- Right Navigation Drawer -->
@@ -148,7 +120,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="end"
         app:menu="@menu/navigation_menu"
-        app:itemTextColor="@color/white"
-        android:background="@drawable/nav_view_background"/>
+        android:background="@drawable/nav_view_background"
+        app:itemTextColor="@color/white" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

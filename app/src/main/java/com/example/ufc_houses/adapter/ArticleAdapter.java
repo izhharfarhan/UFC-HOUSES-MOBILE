@@ -1,7 +1,7 @@
 package com.example.ufc_houses.adapter;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ufc_houses.ArticleActivity;
 import com.example.ufc_houses.R;
 import com.example.ufc_houses.model.ModelArticle;
 import com.squareup.picasso.Picasso;
@@ -40,6 +41,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
         holder.articleTitle.setText(article.getArticleTitle());
         holder.articleCategory.setText(article.getArticleCategory());
+        holder.articleDate.setText(article.getCreatedAt());
 
         // Load article image using Picasso library
         if (article.getArticleThumbnail() != null && !article.getArticleThumbnail().isEmpty()) {
@@ -47,6 +49,17 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         } else {
             holder.articleImage.setImageResource(R.drawable.no_image);
         }
+
+        // Handle click on article
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ArticleActivity.class);
+            intent.putExtra("articleTitle", article.getArticleTitle());
+            intent.putExtra("articleCategory", article.getArticleCategory());
+            intent.putExtra("articleDate", article.getCreatedAt());
+            intent.putExtra("articleThumbnail", article.getArticleThumbnail());
+            intent.putExtra("articleContent", article.getArticleContent());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -62,12 +75,14 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     public static class ArticleViewHolder extends RecyclerView.ViewHolder {
         TextView articleTitle;
         TextView articleCategory;
+        TextView articleDate;
         ImageView articleImage;
 
         public ArticleViewHolder(@NonNull View itemView) {
             super(itemView);
             articleTitle = itemView.findViewById(R.id.article_title);
             articleCategory = itemView.findViewById(R.id.article_category);
+            articleDate = itemView.findViewById(R.id.article_date);
             articleImage = itemView.findViewById(R.id.article_image_view);
         }
     }
